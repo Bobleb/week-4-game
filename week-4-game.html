@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+		<title>Tristan Ernhart</title>
+		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	</head>
+	<body>
+		<section>
+			<div class="row">
+				<div class="col-md-3" id = "title" style="background-color:darkorange">
+					<p>CrystalsCollector!</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3" id="rules" style="background-color:moccasin">
+					<p>You will be given a random number at the start of the game.</p>
+					<p>There are four crystals bellow. By clicking on a crystal you will add a specific amount of points to your total score.</p>
+					<p>You win the game by matching your total score to the random number, you lose the game if your total score goes above the random number.</p>
+					<p>The value of each crystal is hidden form you until you click on it.</p>
+					<p>Each time when the game starts the game will change the value of each crystal.</p>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-2" id="random_number" style="background-color:limegreen">
+					
+				</div>
+				<div class="col-md-1" id="win_loss_table" style="background-color:aqua">
+				</div>
+			</div>
+
+			<div class = "row">
+				<div>
+				<img src="http://via.placeholder.com/150x150" id="crystal_1"><img src="http://via.placeholder.com/150x150" id="crystal_2"><img src="http://via.placeholder.com/150x150" id="crystal_3"><img src="http://via.placeholder.com/150x150" id="crystal_4">
+				</div>
+			</div>
+			<div class= "row">
+				<div class="col-md-2" id="your_total_score" style="background-color:darkcyan">
+					<p>Your total score is:</p>
+				</div>
+			</div>
+			<div class="row">/n</div>
+			<div class="row">
+				<div class="col-md-2" id="score_box" style="background-color:darkcyan">
+					0
+				</div>
+			</div>
+		</section>	
+	</body>
+	<script>
+function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+}
+size = function(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+}
+var values = []
+while(size(values)!=4){
+	var new_val = Math.floor(getRandomArbitrary(1,6))
+	if(values.includes(new_val)==false){
+		values.push(new_val)
+	}
+
+}
+
+function test_win(){
+	if(total_actual==total_aim){
+		wins++
+		total_actual=0
+		total_aim=Math.floor(getRandomArbitrary(30,50))	
+		$("#random_number").html(""+total_aim+"\n\n")
+		$("#win_loss_table").html("Wins: "+wins+"\n\nLosses: "+losses)
+		var values = []
+		while(size(values)!=4){
+			var new_val = Math.floor(getRandomArbitrary(1,6))
+			if(values.includes(new_val)==false){
+				values.push(new_val)
+			}
+
+		}
+		
+		console.log(values)
+	}
+	if(total_actual>total_aim){
+		losses++
+		total_actual=0
+		total_aim=Math.floor(getRandomArbitrary(30,50))	
+		$("#random_number").html(""+total_aim+"\n\n")
+		$("#win_loss_table").html("Wins: "+wins+"\n\nLosses: "+losses)
+		var values = []
+		while(size(values)!=4){
+			var new_val = Math.floor(getRandomArbitrary(1,6))
+			if(values.includes(new_val)==false){
+				values.push(new_val)
+			}
+
+		}
+		console.log(values)
+	}
+}
+function render(){
+
+	$("#random_number").html(""+total_aim+"\n\n")
+	$("#win_loss_table").html("Wins: "+wins+"\n\nLosses: "+losses)
+	$("#score_box").html(total_actual)
+}
+
+
+
+console.log(values)
+var total_aim = Math.floor(getRandomArbitrary(30,50))
+var total_actual = 0
+var wins = 0
+var losses = 0
+$(document).ready(function() {
+	$("#random_number").html(""+total_aim+"\n\n")
+	$("#win_loss_table").html("Wins: "+wins+"\n\nLosses: "+losses)
+
+
+	$("#crystal_1").on("click", function(){
+		total_actual = total_actual+values[0]
+		$("#score_box").html(total_actual)
+		console.log("-----")
+		console.log(values[0])
+		console.log(total_actual)
+		test_win()
+		render()
+	})
+	$("#crystal_2").on("click", function(){
+		total_actual = total_actual+values[1]
+		$("#score_box").html(total_actual)
+		console.log("-----")
+		console.log(values[1])
+		console.log(total_actual)
+		test_win()
+		render()
+	})
+	$("#crystal_3").on("click", function(){
+		total_actual = total_actual+values[2]
+		$("#score_box").html(total_actual)
+		console.log("-----")
+		console.log(values[2])
+		console.log(total_actual)
+		test_win()
+		render()
+	})
+	$("#crystal_4").on("click", function(){
+		total_actual = total_actual+values[3]
+		$("#score_box").html(total_actual)
+		console.log("-----")
+		console.log(values[3])
+		console.log(total_actual)
+		test_win()
+		render()
+	})
+	render()
+
+
+
+
+
+
+})
+
+
+
+
+
+
+
+	</script>
+	<footer>
+		
+	</footer>
+</html>
